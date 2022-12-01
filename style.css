@@ -25,6 +25,7 @@
 }
 
 .question-table {
+    background-color: black;
     padding: 1;
     text-align: center;
     border: 2px solid black;
@@ -65,7 +66,6 @@
     text-align: center;
     font-weight: bold;
     margin: 5px;
-
 }
 
 #answer-form {

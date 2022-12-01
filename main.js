@@ -5,7 +5,7 @@ let answerForm = document.querySelector('#answer-form');
 let userAnswer = document.querySelector('#user-answer');
 let statusMessage = document.querySelector('#status-message');
 let overlay = document.querySelector('#overlay');
-let extra = document.querySelector('#extra');
+let hintsDisplay = document.querySelector('#hints-display');
 
 
 overlay.style.display = 'none';
@@ -43,7 +43,7 @@ let readJeopardyData = async () => {
             question = randomQuestionObj['question'];
             answer = randomQuestionObj['answer'];
             
-            // for debugging
+            // // for debugging
             // console.log('Question is: ' + question);
             // console.log('Answer is: ' + answer);
             
@@ -57,18 +57,18 @@ let readJeopardyData = async () => {
             }
             
             // hints
-            pista = '';
+            hint = '';
         
             for (i = 0; i < answer.length; i++){
                 
                 if (answer[i] === ' ') {
-                    pista += ' ';
+                    hint += ' ';
 
                 } else if (i % 2 === 0){
-                    pista += answer[i];
+                    hint += answer[i];
         
                 } else {
-                    pista += '<span style="color:red;">*</span>';
+                    hint += '<span style="color:red;">*</span>';
                 }
             }
         })
@@ -100,7 +100,7 @@ let readJeopardyData = async () => {
             scoreDisplay.innerText = totalScore;
             
         } else if(userAnswer.value.toUpperCase() === 'YO NO SE') {
-            extra.innerHTML = 'Hint: ' + pista;
+            extra.innerHTML = 'Hint: ' + hint;
             userAnswer.value = "";
 
             totalScore -= 50;
