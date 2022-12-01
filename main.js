@@ -8,10 +8,15 @@ let overlay = document.querySelector('#overlay');
 let hintsDisplay = document.querySelector('#hints-display');
 
 
+let totalScore = 0;
+scoreDisplay.innerText = totalScore;
+
 overlay.style.display = 'none';
+
 overlay.addEventListener('click', () => {
     statusMessage.innerText = 'Try answering the question first!';
 })
+
 
 
 let readJeopardyData = async () => {
@@ -23,16 +28,20 @@ let readJeopardyData = async () => {
 
     let answer = "";
     let points = "";
-    let totalScore = 0;
-    scoreDisplay.innerText = totalScore;
+
+
 
     // Assign random question and aswer to each button based on value
     questionItem.forEach(item => {
+
         item.addEventListener('click', () => {
 
             overlay.style.display = 'block';
 
             statusMessage.innerText = "";
+            hint = "";
+            hintsDisplay.innerText = "";
+            userAnswer.value = "";
             
             item.classList.add('selected');
             
@@ -45,9 +54,11 @@ let readJeopardyData = async () => {
             
             // // for debugging
             // console.log('Question is: ' + question);
-            // console.log('Answer is: ' + answer);
+            console.log('Answer is: ' + answer);
             
             questionDisplay.innerHTML = question;
+
+
 
             // get points, convert to number
             points = "";
@@ -56,6 +67,8 @@ let readJeopardyData = async () => {
                 points += item.innerText[i];
             }
             
+
+
             // hints
             hint = '';
         
@@ -75,32 +88,38 @@ let readJeopardyData = async () => {
     })
 
     
+    
     // Check for valid answer
     answerForm.addEventListener('submit', (event) => {
         event.preventDefault();
         
         // console.log('You answered: ' + userAnswer.value);
         
-        if (userAnswer.value === '' && answer !== ""){
+        if (userAnswer.value === "" && answer !== ""){
             // console.log('Answer Field is Empty!');
             statusMessage.innerText = 'Please enter your answer!';
             
         } else if (answer !== "" && userAnswer.value.toUpperCase() === answer.toUpperCase()) {
-            overlay.style.display = 'none';
-
-            statusMessage.innerText = "";
-            // console.log('Right Answer! You get: $' + points);
             questionDisplay.innerHTML = 'Correct!';
-            question = "";
-            answer = "";
-            userAnswer.value = "";
-            extra.innerHTML = "";
+            // console.log('Right Answer! You get: $' + points);
+
+            overlay.style.display = 'none';
             
             totalScore += Number(points);
             scoreDisplay.innerText = totalScore;
+
+            statusMessage.innerText = "";
+            question = "";
+            answer = "";
+            userAnswer.value = "";
+            hint = "";
+            hintsDisplay.innerHTML = "";
             
-        } else if(userAnswer.value.toUpperCase() === 'YO NO SE') {
-            extra.innerHTML = 'Hint: ' + hint;
+        } else if(userAnswer.value.toUpperCase() === 'YO NO SE' &&
+                !questionDisplay.innerText.includes('Wrong!') &&
+                !questionDisplay.innerText.includes('Correct!')) {
+
+            hintsDisplay.innerHTML = 'Hint: ' + hint;
             userAnswer.value = "";
 
             totalScore -= 50;
@@ -111,17 +130,19 @@ let readJeopardyData = async () => {
             userAnswer.value = "";
 
         } else {
+            questionDisplay.innerHTML = `Wrong! The answer is: ${answer}`;
+
+            totalScore -= Number(points);
+            scoreDisplay.innerText = totalScore;
+
             overlay.style.display = 'none';
 
-            questionDisplay.innerHTML = `Wrong! The answer is: ${answer}`;
             question = "";
             answer = "";
             userAnswer.value = "";
             statusMessage.innerText = "";
-            extra.innerHTML = "";
-
-            totalScore -= Number(points);
-            scoreDisplay.innerText = totalScore;
+            hint = "";
+            hintsDisplay.innerHTML = "";
         }
     })
 }

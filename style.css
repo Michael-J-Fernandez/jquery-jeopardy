@@ -50,7 +50,7 @@
 }
 
 #overlay {
-    /* background-color: black; */
+    /* background-color: green; */
     margin: 0;
     box-sizing: border-box;
     position: absolute;
@@ -85,7 +85,7 @@ button:active {
     background-color: rgb(228, 228, 228);
 }
 
-#extra {
+#hints-display {
     text-align: center;
     font-size: smaller;
     margin-top: 5px;
