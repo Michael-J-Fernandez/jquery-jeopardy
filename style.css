@@ -1,0 +1,92 @@
+.app-container {
+    padding: 5% 10%;
+    margin: auto;
+    max-width: 800px;
+}
+
+#score-card, #status-message, #answer-form, button {
+    color: goldenrod;
+    font-family: Arial, sans-serif;
+    font-weight: 900;
+    text-shadow: rgb(61, 60, 60) 1.1px 1.1px;
+}
+
+#title {
+    font-size: xx-large;
+    color: goldenrod;
+    font-family: Arial, sans-serif;
+    font-weight: 900;
+    text-shadow: rgb(61, 60, 60) 1.5px 1.5px;
+}
+
+#score-card {
+    font-size: medium;
+    margin-bottom: 10px;
+}
+
+.question-table {
+    padding: 1;
+    text-align: center;
+    border: 2px solid black;
+    position: relative;
+}
+
+.question-block {
+    font-weight: 600;
+    color:darkgoldenrod;
+    border: 2px solid black;
+    background-color: darkblue;
+}
+
+.question-block:hover {
+    background-color: dimgrey;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: dimgrey;
+    pointer-events: none;
+}
+
+#overlay {
+    /* background-color: black; */
+    margin: 0;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#question-area, #status-message {
+    text-align: center;
+    font-weight: bold;
+    margin: 5px;
+
+}
+
+#answer-form {
+    text-align: center;
+    margin-top: 12px;
+}
+
+button {
+    border: solid black .8px;
+    border-radius: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 7px;
+}
+
+button:active {
+    background-color: rgb(228, 228, 228);
+}
+
+#extra {
+    text-align: center;
+    font-size: smaller;
+    margin-top: 5px;
+}
