@@ -47,7 +47,7 @@ let readJeopardyData = async () => {
             
             console.log(`${groupedData[item.innerText].length} Questions Valued at ${item.innerText}`);
             
-            randomQuestionObj = groupedData[item.innerText][Math.floor(Math.random() * groupedData[item.innerText].length-1)];
+            randomQuestionObj = groupedData[item.innerText][Math.floor(Math.random() * groupedData[item.innerText].length)];
             question = randomQuestionObj['question'];
             answer = randomQuestionObj['answer'];
             
