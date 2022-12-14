@@ -8,9 +8,6 @@ let overlay = document.querySelector('#overlay');
 let hintsDisplay = document.querySelector('#hints-display');
 
 
-let totalScore = 0;
-scoreDisplay.innerText = totalScore;
-
 overlay.style.display = 'none';
 
 overlay.addEventListener('click', () => {
@@ -18,12 +15,15 @@ overlay.addEventListener('click', () => {
 })
 
 
+let totalScore = 0;
+scoreDisplay.innerText = totalScore;
+
+
 
 let readJeopardyData = async () => {
     
     let rawJeopardyData = await fetch('/jeopardy.json');
     let data = await rawJeopardyData.json();
-    
     let groupedData = _.groupBy(data, 'value');
 
     let answer = "";
@@ -45,19 +45,18 @@ let readJeopardyData = async () => {
             
             item.classList.add('selected');
             
-            // console.log(`${groupedData[item.innerText].length} Questions Valued at ${item.innerText}`);
+            console.log(`${groupedData[item.innerText].length} Questions Valued at ${item.innerText}`);
             
-            randomQuestionObj = groupedData[item.innerText][Math.floor(Math.random() * groupedData[item.innerText].length)];
-            
+            randomQuestionObj = groupedData[item.innerText][Math.floor(Math.random() * groupedData[item.innerText].length-1)];
             question = randomQuestionObj['question'];
             answer = randomQuestionObj['answer'];
             
-            // // for debugging
-            // console.log('Question is: ' + question);
-            console.log('Answer is: ' + answer);
-            
             questionDisplay.innerHTML = question;
 
+            // // for debugging
+            console.log('Q: ' + question);
+            console.log('A: ' + answer);
+            
 
 
             // get points, convert to number
@@ -88,20 +87,20 @@ let readJeopardyData = async () => {
     })
 
     
-    
+
     // Check for valid answer
     answerForm.addEventListener('submit', (event) => {
         event.preventDefault();
         
-        // console.log('You answered: ' + userAnswer.value);
+        console.log('You answered: ' + userAnswer.value);
         
         if (userAnswer.value === "" && answer !== ""){
-            // console.log('Answer Field is Empty!');
+            console.log('Answer Field is Empty!');
             statusMessage.innerText = 'Please enter your answer!';
             
         } else if (answer !== "" && userAnswer.value.toUpperCase() === answer.toUpperCase()) {
             questionDisplay.innerHTML = 'Correct!';
-            // console.log('Right Answer! You get: $' + points);
+            console.log('Right Answer! You get: $' + points);
 
             overlay.style.display = 'none';
             
